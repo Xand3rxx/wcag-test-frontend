@@ -16,6 +16,12 @@ This API application features the following:
 4. Run `npm run build` to compile and minifiy for production.
 5. Run `npm run lint` for lints and fixes files (optional).
 
+## Hosted Domain
+
+You can access the live frontend of this project at the following URL:
+
+[Frontend URL](https://wcag-test-frontend.vercel.app/)
+
 ## Project Screenshots
 
 ![Screenshot 1](public/images/wcag-frontend.png)
