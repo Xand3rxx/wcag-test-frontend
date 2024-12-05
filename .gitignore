@@ -1,4 +1,13 @@
+# macOS system files
 .DS_Store
+.DS_Store?
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+Icon?
 node_modules
 /dist
 

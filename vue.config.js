@@ -1,4 +1,11 @@
-const { defineConfig } = require('@vue/cli-service')
+// import { defineConfig } from 'vite'
+const { defineConfig } = require("@vue/cli-service");
+const path = require("path");
+
+// https://vitejs.dev/config/
 module.exports = defineConfig({
-  transpileDependencies: true
-})
+  transpileDependencies: true,
+  chainWebpack: (config) => {
+    config.resolve.alias.set("@", path.resolve(__dirname, "src"));
+  },
+});
