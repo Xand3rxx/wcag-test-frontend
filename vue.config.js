@@ -8,4 +8,9 @@ module.exports = defineConfig({
   chainWebpack: (config) => {
     config.resolve.alias.set("@", path.resolve(__dirname, "src"));
   },
+  pluginOptions: {
+    define: {
+      __VARIABLE_NAME__: JSON.stringify(process.env.VUE_APP_VARIABLE_NAME) // Example usage for environment variables
+    }
+  },
 });

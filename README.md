@@ -3,27 +3,19 @@
 WCAG stands for Web Content Accessibility Guidelines. In simple terms, it's a set of rules that help make websites easier to use for people with disabilities, like those who are blind, deaf, or have difficulty using a mouse. These guidelines ensure that websites are accessible to everyone, no matter their abilities.
 
 This API application features the following:
- - `Frontend (User Interface):` Allows users to upload HTML files.
+
+- Allows users to upload HTML files.
+- Display accessibility scores, issues, and suggested fixes.
+- Include visual highlights for detected issues.
 
 ## Environment Setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+1. Run `npm install` to download the application dependencies.
+2. Configure the API base URL in `/src/helpers/services/ApiService.js`
+3. Run `npm run serve` to compile and hot-reload for development.
+4. Run `npm run build` to compile and minifiy for production.
+5. Run `npm run lint` for lints and fixes files (optional).
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Project Screenshots
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![Screenshot 1](public/images/wcag-frontend.png)

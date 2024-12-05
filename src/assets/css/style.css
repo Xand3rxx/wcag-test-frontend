@@ -13,7 +13,7 @@
     align-items: center;
 }
 
-.container {
+/* .container {
     padding: 66px 16px 66px;
     border: 1px solid white;
     text-align: center;
@@ -21,7 +21,7 @@
     width: 92%;
     max-width: 400px;
     margin: 0 4% 0 4%;
-}
+} */
 
 .container .title {
     font-size: 120px;
@@ -196,3 +196,128 @@
         clip: rect(30px, 9999px, 147px, 0);
     }
 }
+
+body {
+    font-family: "Sora", sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #060633;
+    background-color: #f8f9fa;
+  }
+
+  .form-control,
+  .btn,
+  .form-select,
+  .accordion-button {
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  .text-medium {
+    font-weight: 500;
+  }
+
+  .main-content {
+    margin-top: 80px;
+  }
+
+  .btn-main {
+    background-color: #1C84FF;
+    color: #fff;
+  }
+
+  .btn-main:hover {
+    background-color: #060633;
+    color: #fff;
+  }
+
+  .accordion-item {
+    border: unset;
+  }
+
+  .border-radius-20 {
+    border-radius: 20px;
+  }
+
+  .ft-sm {
+    font-size: 12px;
+  }
+
+  .badge-main-secondary {
+    background-color: #e8e8ff;
+    color: #413FE5;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .badge-main-warning {
+    background-color: #f0daff;
+    color: #7a30ab;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .badge-main-success {
+    background-color: #ffeddc;
+    color: #FF8710;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .badge-main-danger {
+    background-color: #ffe6e9;
+    color: #FC2641;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .recent-height {
+    height: 440px;
+    overflow: auto;
+  }
+
+  .badge-color-1 {
+    background-color: #e8e8ff;
+    color: #413FE5;
+    border-radius: 50px;
+    padding: 5px 15px;
+  }
+
+  .badge-color-2 {
+    background-color: #f0daff;
+    color: #7a30ab;
+    border-radius: 50px;
+    padding: 5px 15px;
+  }
+
+  .badge-color-3 {
+    background-color: #ffeddc;
+    color: #FF8710;
+    border-radius: 50px;
+    padding: 5px 15px;
+  }
+
+  .badge-color-4 {
+    background-color: #ffe6e9;
+    color: #FC2641;
+    border-radius: 50px;
+    padding: 5px 15px;
+  }
+
+  @media screen and (min-width: 991px) {
+    .col-count-custom {
+      column-count: 2;
+    }
+
+    .offcanvas-width {
+      width: 600px !important;
+    }
+  }

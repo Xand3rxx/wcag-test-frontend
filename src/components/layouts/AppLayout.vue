@@ -1,16 +1,27 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="main-content-dashboard mt-4">
-          <div class="row mx-auto" :class="[layoutClass || layoutWidth]">
-            <slot></slot>
-            <router-view />
-          </div>
-        </div>
-      </main>
+  <nav
+    class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm"
+  >
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img
+          src="/images/logo.svg"
+          class="img-fluid"
+          alt="logo"
+          style="height: 30px"
+        />
+      </a>
+
+      <h3 class="text-bold">WCAG Analyzer</h3>
     </div>
-  </div>
+  </nav>
+
+  <main class="container my-5">
+    <div class="mx-auto">
+      <slot></slot>
+      <router-view />
+    </div>
+  </main>
 </template>
 
 <script>
@@ -20,11 +31,6 @@ export default defineComponent({
   name: "app-layout-component",
   props: {
     layoutClass: String,
-  },
-  computed: {
-    layoutWidth() {
-      return this.$route.meta.layoutWidth || "";
-    },
   },
 });
 </script>

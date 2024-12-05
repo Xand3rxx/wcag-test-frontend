@@ -8,8 +8,8 @@ class ApiService {
     const baseURL = "http://127.0.0.1:9909/api";
     ApiService.vueInstance = app;
     ApiService.vueInstance.use(VueAxios, axios);
-    // ApiService.vueInstance.axios.defaults.baseURL = import.meta.env.VITE_APP_API_BASE_URL;
     ApiService.vueInstance.axios.defaults.baseURL = baseURL;
+    // ApiService.vueInstance.axios.defaults.baseURL = import.meta.env.VITE_APP_API_BASE_URL;
   }
 
   static setResponseType(type) {
