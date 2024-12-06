@@ -312,6 +312,13 @@ body {
     padding: 5px 15px;
   }
 
+  .badge-color-5 {
+    background-color: #E6FFE9;
+    color: #489551;
+    border-radius: 50px;
+    padding: 5px 15px;
+  }
+
   @media screen and (min-width: 991px) {
     .col-count-custom {
       column-count: 2;
