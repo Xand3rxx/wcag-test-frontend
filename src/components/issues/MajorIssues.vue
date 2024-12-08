@@ -1,26 +1,35 @@
 <template>
   <div>
     <div class="accordion mt-3">
-      <div v-for="(issue, key) in issues" :key="key" class="accordion-item">
-        <h2 class="accordion-header" :id="'heading-' + key">
-          <button
-            class="accordion-button"
-            type="button"
-            :aria-expanded="selectedIssue === key ? true : false"
-            :aria-controls="'collapse-' + key"
-            @click="toggleAccordion(key)"
+      <div
+        v-for="(issue, key) in issues"
+        :key="key"
+        class="accordion-item mb-2"
+      >
+        <div v-if="issue?.issue">
+          <h2 class="accordion-header" :id="'heading-' + key">
+            <button
+              class="accordion-button border-radius-10 custom-accordion-color"
+              :class="{ collapsed: selectedIssue !== key }"
+              type="button"
+              :aria-expanded="selectedIssue === key"
+              :aria-controls="'collapse-' + key"
+              @click="toggleAccordion(key)"
+            >
+              <h6 class="text-danger">
+                {{ issue?.issue }} at line {{ issue?.line }}
+              </h6>
+            </button>
+          </h2>
+          <div
+            :id="'collapse-' + key"
+            class="accordion-collapse collapse"
+            :class="{ show: selectedIssue === key }"
+            :aria-labelledby="'heading-' + key"
           >
-            <h6 class="text-danger">{{ issue?.issue }} at line {{ issue?.line }}</h6>
-          </button>
-        </h2>
-        <div
-          :id="'collapse-' + key"
-          class="accordion-collapse collapse"
-          :class="{ show: selectedIssue === key }"
-          :aria-labelledby="'heading-' + key"
-        >
-          <div class="accordion-body">
-            <IssueDetails :issue-details="issue.details" />
+            <div class="accordion-body">
+              <IssueDetails :issue-details="issue.details" />
+            </div>
           </div>
         </div>
       </div>

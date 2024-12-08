@@ -60,10 +60,10 @@ export default defineComponent({
     });
 
     const defaultPayload = () => {
-      payload.value.selectedFile = null;
+      // payload.value.selectedFile = null;
       payload.value.isSubmitting = false;
       submitButtonDisabled.value = false;
-      document.getElementById('file-input').value = '';
+      // document.getElementById('file-input').value = '';
     };
 
     // Handle file change

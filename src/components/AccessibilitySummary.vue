@@ -5,7 +5,7 @@
 
       <div v-if="loading">
         <h3 class="mt-5 text-center">
-          Loading data...
+          Processing file content...
           <span
             class="spinner-border spinner-border-sm align-middle ms-2"
           ></span>
@@ -13,6 +13,9 @@
       </div>
 
       <div v-else-if="issues?.length > 0">
+        <CompliantSummary :complianceScore="complianceScore" />
+
+        <h5 class="mb-3">{{ issues?.length }} Issues Found</h5>
         <MajorIssues
           :issues="issues"
           @issue-selected="setSelectedIssueDetails"
@@ -31,14 +34,17 @@
 <script>
 import { defineComponent, ref, watch } from "vue";
 import MajorIssues from "@/components/issues/MajorIssues.vue";
+import CompliantSummary from "@/components/issues/CompliantSummary.vue";
 
 export default defineComponent({
   name: "accessibility-summary-component",
   components: {
     MajorIssues,
+    CompliantSummary,
   },
   props: {
     originalIssues: Array,
+    complianceScore: Number,
   },
   setup(props, { emit }) {
     const issues = ref(
@@ -52,9 +58,14 @@ export default defineComponent({
       (newIssues) => {
         let issuesArray = Array.isArray(newIssues) ? newIssues : [];
 
-        if (newIssues && typeof newIssues === "object" && !Array.isArray(newIssues)
+        if (
+          newIssues &&
+          typeof newIssues === "object" &&
+          !Array.isArray(newIssues)
         ) {
-          issuesArray = Array.isArray(newIssues) ? newIssues : Object.values(newIssues);
+          issuesArray = Array.isArray(newIssues)
+            ? newIssues
+            : Object.values(newIssues);
         }
 
         if (issuesArray.length > 0) {
@@ -63,8 +74,8 @@ export default defineComponent({
 
           setTimeout(() => {
             loading.value = false;
-          }, 500);
-        } 
+          }, 1000);
+        }
       },
       { immediate: true }
     );

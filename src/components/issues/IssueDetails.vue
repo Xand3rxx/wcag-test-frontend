@@ -1,6 +1,6 @@
 <template>
   <div v-if="issues && issues.length > 0">
-    <h5 class="mb-3">{{ issues.length }} issue(s) found.</h5>
+    <h5 class="mb-3">{{ issues.length }} failed element(s).</h5>
 
     <div class="recent-height">
       <div

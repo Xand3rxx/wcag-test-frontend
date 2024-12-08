@@ -16,6 +16,7 @@
       <AccessibilitySummary
         :original-issues="response.issues"
         @issue-selected="handleSelectedIssue"
+        :complianceScore="response?.compliance_score"
       />
     </div>
   </div>

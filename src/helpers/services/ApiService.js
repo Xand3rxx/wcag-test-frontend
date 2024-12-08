@@ -6,7 +6,6 @@ class ApiService {
 
   static init(app) {
     const baseURL = "https://wcag.backend.sixthflair.com/api";
-    // const baseURL = "http://127.0.0.1:9909/api";
     ApiService.vueInstance = app;
     ApiService.vueInstance.use(VueAxios, axios);
     ApiService.vueInstance.axios.defaults.baseURL = baseURL;
