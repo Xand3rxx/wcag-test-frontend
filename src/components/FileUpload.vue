@@ -6,11 +6,12 @@
       <div class="mb-3">
         <img src="images/uploadIcon2.svg" class="img-fluid" />
       </div>
-      <h6 class="text-bold">Upload HTML Document</h6>
+      <p class="custom-h6">Upload HTML Document</p>
       <p class="ft-md">Select an HTML file not more than 256KB</p>
       <input
         class="form-control text-center"
         type="file"
+        aria-label="File input"
         :accept="acceptedFileTypes"
         name="file"
         id="file-input"

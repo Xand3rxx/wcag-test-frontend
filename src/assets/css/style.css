@@ -317,3 +317,8 @@ body {
   background-color: #ffe6e9;
   border-color: #ffe6e9;
 }
+
+.custom-h6 {
+  font-size: 1rem;
+  font-weight: 500;
+}

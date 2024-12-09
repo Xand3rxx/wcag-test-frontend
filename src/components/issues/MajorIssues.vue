@@ -16,9 +16,9 @@
               :aria-controls="'collapse-' + key"
               @click="toggleAccordion(key)"
             >
-              <h6 class="text-danger">
+              <p class="custom-h6 text-danger">
                 {{ issue?.issue }} at line {{ issue?.line }}
-              </h6>
+              </p>
             </button>
           </h2>
           <div
