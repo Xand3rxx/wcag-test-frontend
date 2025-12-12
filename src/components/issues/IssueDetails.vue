@@ -8,22 +8,22 @@
         v-for="(detail, index) in issues"
         :key="index"
       >
-      <pre
-          class="ft-sm badge-color-4 d-inline-block"
-        ><code>{{ detail.faulted_html }}</code></pre>
-        <br />
-        <p class="ft-sm d-inline-block">
+        <div class="mb-2">
+          <span class="badge bg-danger me-2">Issue</span>
+          <pre class="ft-sm badge-color-4 d-inline-block mb-0"><code>{{ detail.faulted_html }}</code></pre>
+        </div>
+        <p class="ft-sm mb-2">
           <span class="fw-bold">Suggestion:</span> {{ detail?.suggested_fix }}
         </p>
-        <br />
-        <pre
-          class="ft-sm badge-color-5 d-inline-block"
-        ><code>{{ detail.sample_html }}</code></pre>
+        <div>
+          <span class="badge bg-success me-2">Fix</span>
+          <pre class="ft-sm badge-color-5 d-inline-block mb-0"><code>{{ detail.sample_html }}</code></pre>
+        </div>
       </div>
     </div>
   </div>
   <div v-else>
-    <p>No details available for the selected issue.</p>
+    <p class="text-muted">No details available for the selected issue.</p>
   </div>
 </template>
 
@@ -31,15 +31,16 @@
 import { defineComponent, computed } from "vue";
 
 export default defineComponent({
-  name: "issue-details-component",
+  name: "IssueDetails",
   props: {
     issueDetails: {
       type: Array,
-      required: true,
+      required: false,
+      default: () => [],
     },
   },
   setup(props) {
-    const issues = computed(() => props.issueDetails);
+    const issues = computed(() => props.issueDetails ?? []);
 
     return {
       issues,

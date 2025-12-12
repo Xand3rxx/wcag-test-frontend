@@ -4,7 +4,7 @@
   >
     <div class="mx-auto">
       <div class="mb-3">
-        <img src="images/uploadIcon2.svg" class="img-fluid" />
+        <img src="/images/uploadIcon2.svg" alt="Upload icon" class="img-fluid" />
       </div>
       <p class="custom-h6">Upload HTML Document</p>
       <p class="ft-md">Select an HTML file not more than 256KB</p>
@@ -22,7 +22,7 @@
         :disabled="submitButtonDisabled"
         class="btn btn-size btn-main btn-hover-effect-1 rounded-pill make-text-bold w-100 mt-3"
       >
-        <span class="indicator-progress" v-if="payload.isSubmitting">
+        <span class="indicator-progress" v-if="isSubmitting">
           Please wait...
           <span
             class="spinner-border spinner-border-sm align-middle ms-2"
@@ -41,30 +41,34 @@ import ApiService from "@/helpers/services/ApiService";
 import apiRoutes from "@/helpers/services/ApiRoutesService";
 
 export default defineComponent({
-  name: "file-upload-component",
+  name: "FileUpload",
   props: {
     acceptedFileTypes: {
-      type: String,
+      type: [String, Array],
       required: false,
       default: ".html",
     },
   },
-  setup(_, { emit }) {
-    const payload = ref({
-      selectedFile: null,
-      isSubmitting: false,
-    });
+  emits: ["file-uploaded"],
+  setup(props, { emit }) {
+    const selectedFile = ref(null);
+    const isSubmitting = ref(false);
 
     // Computed property to manage the submit button state
     const submitButtonDisabled = computed(() => {
-      return payload.value.isSubmitting || !payload.value.selectedFile;
+      return isSubmitting.value || !selectedFile.value;
     });
 
-    const defaultPayload = () => {
-      // payload.value.selectedFile = null;
-      payload.value.isSubmitting = false;
-      submitButtonDisabled.value = false;
-      // document.getElementById('file-input').value = '';
+    // Computed to normalize accepted file types
+    const normalizedAcceptTypes = computed(() => {
+      if (Array.isArray(props.acceptedFileTypes)) {
+        return props.acceptedFileTypes.join(",");
+      }
+      return props.acceptedFileTypes;
+    });
+
+    const resetForm = () => {
+      isSubmitting.value = false;
     };
 
     // Handle file change
@@ -72,44 +76,46 @@ export default defineComponent({
       const file = event.target.files[0];
       if (file && file.size > 256 * 1024) {
         alert("File size must not exceed 256KB");
+        event.target.value = "";
+        selectedFile.value = null;
         return;
       }
-      payload.value.selectedFile = file;
+      selectedFile.value = file;
     };
 
     // Submit function to handle API call
     const submit = async () => {
-      if (!payload.value.selectedFile) {
-        return alert("Please select a valid HTML document");
+      if (!selectedFile.value) {
+        alert("Please select a valid HTML document");
+        return;
       }
 
-      // Set submitting state to true when submission begins
-      payload.value.isSubmitting = true;
+      isSubmitting.value = true;
 
-      // Prepare the form data
       const formData = new FormData();
-      formData.append("file", payload.value.selectedFile);
+      formData.append("file", selectedFile.value);
 
-      // Make the POST request with FormData
-      setTimeout(() => {
-        ApiService.post(apiRoutes.ANALYZE_HTML, formData)
-          .then((data) => {
-            emit("file-uploaded", data?.data?.data);
-            defaultPayload();
-          })
-          .catch(function (error) {
-            console.log(error);
-            alert("There was an error while uploading the file.");
-            defaultPayload();
-          });
-      }, 1000);
+      try {
+        const response = await ApiService.post(apiRoutes.ANALYZE_HTML, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        emit("file-uploaded", response?.data?.data);
+      } catch (error) {
+        console.error("Upload error:", error);
+        alert("There was an error while uploading the file. Please try again.");
+      } finally {
+        resetForm();
+      }
     };
 
     return {
       handleFileChange,
       submit,
-      payload,
+      isSubmitting,
       submitButtonDisabled,
+      acceptedFileTypes: normalizedAcceptTypes,
     };
   },
 });

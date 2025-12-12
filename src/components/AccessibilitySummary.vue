@@ -12,10 +12,10 @@
         </h3>
       </div>
 
-      <div v-else-if="issues?.length > 0">
+      <div v-else-if="issues.length > 0">
         <CompliantSummary :complianceScore="complianceScore" />
 
-        <h5 class="mb-3">{{ issues?.length }} Issues Found</h5>
+        <h5 class="mb-3">{{ issues.length }} Issues Found</h5>
         <MajorIssues
           :issues="issues"
           @issue-selected="setSelectedIssueDetails"
@@ -37,47 +37,56 @@ import MajorIssues from "@/components/issues/MajorIssues.vue";
 import CompliantSummary from "@/components/issues/CompliantSummary.vue";
 
 export default defineComponent({
-  name: "accessibility-summary-component",
+  name: "AccessibilitySummary",
   components: {
     MajorIssues,
     CompliantSummary,
   },
   props: {
-    originalIssues: Array,
-    complianceScore: Number,
+    originalIssues: {
+      type: [Array, Object],
+      default: () => [],
+    },
+    complianceScore: {
+      type: Number,
+      default: 0,
+    },
   },
+  emits: ["issue-selected"],
   setup(props, { emit }) {
-    const issues = ref(
-      Array.isArray(props.originalIssues) ? props.originalIssues : []
-    );
+    const issues = ref([]);
     const loading = ref(false);
+
+    // Helper to normalize issues from different formats
+    const normalizeIssues = (rawIssues) => {
+      if (Array.isArray(rawIssues)) {
+        return rawIssues;
+      }
+      if (rawIssues && typeof rawIssues === "object") {
+        return Object.values(rawIssues);
+      }
+      return [];
+    };
 
     // Watch for changes in originalIssues and update the issues array
     watch(
       () => props.originalIssues,
       (newIssues) => {
-        let issuesArray = Array.isArray(newIssues) ? newIssues : [];
-
-        if (
-          newIssues &&
-          typeof newIssues === "object" &&
-          !Array.isArray(newIssues)
-        ) {
-          issuesArray = Array.isArray(newIssues)
-            ? newIssues
-            : Object.values(newIssues);
-        }
-
-        if (issuesArray.length > 0) {
-          issues.value = issuesArray;
+        const normalizedIssues = normalizeIssues(newIssues);
+        
+        if (normalizedIssues.length > 0) {
           loading.value = true;
-
+          
+          // Simulate processing delay
           setTimeout(() => {
+            issues.value = normalizedIssues;
             loading.value = false;
-          }, 1000);
+          }, 500);
+        } else {
+          issues.value = [];
         }
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     );
 
     // Function to handle when an issue is selected

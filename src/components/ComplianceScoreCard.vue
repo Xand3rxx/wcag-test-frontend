@@ -9,11 +9,12 @@
               The compliance score serves as an easily interpretable metric to
               gauge the overall accessibility of the uploaded HTML file.
             </p>
-            <h1 class="mb-2 text-bold-2">{{ complianceScore }}</h1>
+            <h1 class="mb-2 text-bold-2">{{ displayScore }}</h1>
           </div>
           <div class="col-auto">
-            Websites with a score lower than 95 are at risk of accessibility
-            lawsuits
+            <span :class="scoreClass">
+              {{ scoreMessage }}
+            </span>
           </div>
         </div>
       </div>
@@ -22,15 +23,40 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 
 export default defineComponent({
-  name: "compliance-score-card-component",
+  name: "ComplianceScoreCard",
   props: {
     complianceScore: {
       type: Number,
-      required: true,
+      required: false,
+      default: 0,
     },
+  },
+  setup(props) {
+    const displayScore = computed(() => {
+      return props.complianceScore ?? 0;
+    });
+
+    const scoreClass = computed(() => {
+      const score = props.complianceScore ?? 0;
+      if (score >= 95) return "text-success";
+      if (score >= 70) return "text-warning";
+      return "text-danger";
+    });
+
+    const scoreMessage = computed(() => {
+      const score = props.complianceScore ?? 0;
+      if (score >= 95) return "Your site meets accessibility standards";
+      return "Websites with a score lower than 95 are at risk of accessibility lawsuits";
+    });
+
+    return {
+      displayScore,
+      scoreClass,
+      scoreMessage,
+    };
   },
 });
 </script>

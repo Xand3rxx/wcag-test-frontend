@@ -16,8 +16,8 @@
               :aria-controls="'collapse-' + key"
               @click="toggleAccordion(key)"
             >
-              <p class="custom-h6 text-danger">
-                {{ issue?.issue }} at line {{ issue?.line }}
+              <p class="custom-h6 text-danger mb-0">
+                {{ issue.issue }} at line {{ issue.line }}
               </p>
             </button>
           </h2>
@@ -42,7 +42,7 @@ import { defineComponent, ref } from "vue";
 import IssueDetails from "@/components/issues/IssueDetails.vue";
 
 export default defineComponent({
-  name: "major-issues-component",
+  name: "MajorIssues",
   components: {
     IssueDetails,
   },
@@ -50,13 +50,14 @@ export default defineComponent({
     issues: {
       type: Array,
       required: true,
+      default: () => [],
     },
   },
+  emits: ["issue-selected"],
   setup() {
     const selectedIssue = ref(null);
 
     const toggleAccordion = (key) => {
-      // If the same issue is clicked again, close it. Otherwise, open the new issue.
       selectedIssue.value = selectedIssue.value === key ? null : key;
     };
 

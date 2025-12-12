@@ -3,16 +3,16 @@
     class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm"
   >
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/" aria-label="WCAG Analyzer Home">
         <img
           src="/images/logo.svg"
           class="img-fluid"
-          alt="logo"
+          alt="WCAG Analyzer Logo"
           style="height: 30px"
         />
       </a>
 
-      <h3 class="text-bold">WCAG Analyzer</h3>
+      <h1 class="text-bold mb-0 h3">WCAG Analyzer</h1>
     </div>
   </nav>
 
@@ -28,9 +28,12 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "app-layout-component",
+  name: "AppLayout",
   props: {
-    layoutClass: String,
+    layoutClass: {
+      type: String,
+      default: "",
+    },
   },
 });
 </script>

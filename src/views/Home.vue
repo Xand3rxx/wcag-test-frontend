@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-lg-6">
       <!-- Compliance Score Card -->
-      <ComplianceScoreCard :complianceScore="response?.compliance_score" />
+      <ComplianceScoreCard :complianceScore="response.compliance_score" />
 
       <!-- File upload component -->
       <FileUpload
         @file-uploaded="handleFileUploaded"
-        :acceptedFileTypes="['.html']"
+        acceptedFileTypes=".html"
       />
     </div>
 
@@ -16,7 +16,7 @@
       <AccessibilitySummary
         :original-issues="response.issues"
         @issue-selected="handleSelectedIssue"
-        :complianceScore="response?.compliance_score"
+        :complianceScore="response.compliance_score"
       />
     </div>
   </div>
@@ -29,14 +29,19 @@ import FileUpload from "@/components/FileUpload.vue";
 import AccessibilitySummary from "@/components/AccessibilitySummary.vue";
 
 export default defineComponent({
-  name: "home-view",
+  name: "HomeView",
   components: { ComplianceScoreCard, FileUpload, AccessibilitySummary },
   setup() {
     const response = ref({ compliance_score: 0, issues: [] });
     const selectedIssueDetails = ref([]);
 
     const handleFileUploaded = (data) => {
-      response.value = data;
+      if (data) {
+        response.value = {
+          compliance_score: data.compliance_score ?? 0,
+          issues: data.issues ?? []
+        };
+      }
     };
 
     const handleSelectedIssue = (issueDetails) => {

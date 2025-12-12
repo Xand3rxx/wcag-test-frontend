@@ -1,27 +1,94 @@
-## About this repository
+# WCAG Analyzer Frontend
 
-WCAG stands for Web Content Accessibility Guidelines. In simple terms, it's a set of rules that help make websites easier to use for people with disabilities, like those who are blind, deaf, or have difficulty using a mouse. These guidelines ensure that websites are accessible to everyone, no matter their abilities.
+A Vue 3 web application for analyzing HTML documents against Web Content Accessibility Guidelines (WCAG) standards.
 
-This application features the following:
+![WCAG Analyzer Screenshot](public/images/wcag-frontend.png)
 
-- Allows users to upload HTML files.
-- Display accessibility scores, issues, and suggested fixes.
-- Include visual highlights for detected issues.
+## Features
 
-## Environment Setup
+- Upload HTML files for accessibility analysis
+- View compliance scores and detailed reports
+- Identify accessibility issues with suggested fixes
+- Modern, responsive UI built with Bootstrap 5
 
-1. Run `npm install` to download the application dependencies.
-2. Configure the API base URL in `/src/helpers/services/ApiService.js`
-3. Run `npm run serve` to compile and hot-reload for development.
-4. Run `npm run build` to compile and minifiy for production.
-5. Run `npm run lint` for lints and fixes files (optional).
+## Tech Stack
 
-## Hosted Domain
+- **Vue 3** - Composition API
+- **Vite 6** - Build tool and dev server
+- **Vue Router 4** - Client-side routing
+- **Bootstrap 5** - UI components
+- **Axios** - HTTP client
 
-You can access the live frontend of this project at the following URL:
+## Requirements
 
-[Frontend URL](https://wcag-test-frontend.vercel.app/)
+- Node.js 20+ (recommended: Node.js 24)
+- npm 10+
 
-## Project Screenshots
+## Installation
 
-![Screenshot 1](public/images/wcag-frontend.png)
+```bash
+# Install dependencies
+npm install
+
+# Copy environment file and configure
+cp .env.example .env
+```
+
+## Development
+
+```bash
+# Start development server
+npm run dev
+```
+
+The app will be available at `http://localhost:3000`
+
+## Production Build
+
+```bash
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Environment Variables
+
+| Variable            | Description     | Default                                   |
+| ------------------- | --------------- | ----------------------------------------- |
+| `VITE_API_BASE_URL` | Backend API URL | `https://wcag.backend.sixthflair.com/api` |
+
+## Deployment
+
+### Vercel
+
+This project is configured for Vercel deployment with Node.js 24:
+
+1. Connect your repository to Vercel
+2. Set the `VITE_API_BASE_URL` environment variable in Vercel dashboard
+3. Deploy
+
+The `vercel.json` configuration handles:
+
+- SPA routing (all routes serve `index.html`)
+- Node.js 24 runtime
+- Vite build output
+
+## Project Structure
+
+```
+src/
+├── assets/          # Static assets and CSS
+├── components/      # Reusable Vue components
+│   ├── issues/      # Issue-related components
+│   └── layouts/     # Layout components
+├── helpers/         # Utility functions and services
+│   └── services/    # API service layer
+├── router/          # Vue Router configuration
+└── views/           # Page components
+```
+
+## License
+
+Private
